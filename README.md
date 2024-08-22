@@ -1,6 +1,6 @@
 # RecLM: Recommendation Instruction Tuning
 
-<img src="./RecLM_fig.pdf" style="zoom:100%;" />
+<img src="./RecLM_fig.png" style="zoom:100%;" />
 
 This is the codes and dataset for RecLM proposed in the paper **RecLM: Recommendation Instruction Tuning.**
 
