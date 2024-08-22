@@ -1,0 +1,46 @@
+{
+  "builder_name": "csv",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "csv",
+  "dataset_size": 2254496,
+  "description": "",
+  "download_checksums": {
+    "./../../sft_data/mind/mind_fine_tune.csv": {
+      "num_bytes": 2253942,
+      "checksum": null
+    }
+  },
+  "download_size": 2253942,
+  "features": {
+    "UID": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Input": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Response": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 4508438,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 2254496,
+      "num_examples": 1694,
+      "dataset_name": "csv"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

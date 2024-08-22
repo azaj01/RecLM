@@ -17,7 +17,7 @@ def format_instruction(sample):
     {sample['Response']}
     """
 
-dataset = load_from_disk("./../../data/netflix/netflix_hf")
+dataset = load_from_disk("./../../sft_data/mind/mind_hf")
 
 print(format_instruction(dataset[randrange(len(dataset))]))
 
@@ -55,7 +55,7 @@ model = get_peft_model(model, peft_config)
 model.print_trainable_parameters()
 
 args = TrainingArguments(
-    output_dir="./../ft_models/llama_lora_netflix_v0",
+    output_dir="./../ft_models/llama_lora_mind_v0",
     num_train_epochs=3,
     per_device_train_batch_size=6 if use_flash_attention else 4,
     gradient_accumulation_steps=2,

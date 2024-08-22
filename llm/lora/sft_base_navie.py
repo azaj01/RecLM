@@ -33,12 +33,12 @@ def format_instruction(sample):
 
 # os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
-dataset = load_from_disk("./../../data/netflix/cf_instruction_hf")
+dataset = load_from_disk("./../../sft_data/mind/cf_instruction_hf")
 
 print(format_instruction(dataset[randrange(len(dataset))]))
 
 use_flash_attention = False
-model_id = "./../ft_models/llama_lora_netflix_v0/merged_model"
+model_id = "./../ft_models/llama_lora_mind_v0/merged_model"
 
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True, bnb_4bit_use_double_quant=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16
@@ -71,7 +71,7 @@ model = get_peft_model(model, peft_config)
 model.print_trainable_parameters()
 
 args = TrainingArguments(
-    output_dir="./../ft_models/llama_lora_netflix_navie_v1",
+    output_dir="./../ft_models/llama_lora_mind_navie_v1",
     num_train_epochs=3,
     # num_train_epochs=1,
     per_device_train_batch_size=6 if use_flash_attention else 1,

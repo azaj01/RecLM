@@ -1,0 +1,46 @@
+{
+  "builder_name": "csv",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "csv",
+  "dataset_size": 1447681,
+  "description": "",
+  "download_checksums": {
+    "./data/netflix/netflix_fine_tune.csv": {
+      "num_bytes": 1442758,
+      "checksum": null
+    }
+  },
+  "download_size": 1442758,
+  "features": {
+    "UID": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Input": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Response": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 2890439,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 1447681,
+      "num_examples": 1530,
+      "dataset_name": "csv"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

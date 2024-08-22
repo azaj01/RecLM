@@ -1,0 +1,46 @@
+{
+  "builder_name": "csv",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "csv",
+  "dataset_size": 2319476,
+  "description": "",
+  "download_checksums": {
+    "/home/yangqin/save_data/./data/mind/item_side_instruction_data.csv": {
+      "num_bytes": 2315939,
+      "checksum": null
+    }
+  },
+  "download_size": 2315939,
+  "features": {
+    "UID": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Input": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Response": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 4635415,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 2319476,
+      "num_examples": 892,
+      "dataset_name": "csv"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

@@ -382,11 +382,11 @@ print(dataset[random.randrange(len(dataset))])
 #         # content += item_info_dict[iid_]['title']
 #         # netflix
 #         # content += 'title: '
-#         # content += item_info_dict[iid]['title']
+#         # content += item_info_dict[iid_]['title']
 #         # content += ', year: '
-#         # content += str(item_info_dict[iid]['year'])
+#         # content += str(item_info_dict[iid_]['year'])
 #         content += 'title: '
-#         content += item_info_dict[iid]
+#         content += item_info_dict[iid_]
 #         content += ', the profile of the users that the item is targeting: '
 #         content += item_profile_dict[iid_]['output']
 #         content += '];\n'

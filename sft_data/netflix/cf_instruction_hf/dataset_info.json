@@ -1,0 +1,54 @@
+{
+  "builder_name": "csv",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "csv",
+  "dataset_size": 5146687,
+  "description": "",
+  "download_checksums": {
+    "/home/yangqin/save_data/./data/netflix/cf_instruction_data.csv": {
+      "num_bytes": 5132966,
+      "checksum": null
+    }
+  },
+  "download_size": 5132966,
+  "features": {
+    "UID": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Input1": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Response1": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Input2": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Response2": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 10279653,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 5146687,
+      "num_examples": 1795,
+      "dataset_name": "csv"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

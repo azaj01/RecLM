@@ -1,0 +1,54 @@
+{
+  "builder_name": "csv",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "csv",
+  "dataset_size": 25394148,
+  "description": "",
+  "download_checksums": {
+    "/home/yangqin/save_data/./data/mind/cf_instruction_data.csv": {
+      "num_bytes": 25386863,
+      "checksum": null
+    }
+  },
+  "download_size": 25386863,
+  "features": {
+    "UID": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Input1": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Response1": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Input2": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Response2": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 50781011,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 25394148,
+      "num_examples": 5486,
+      "dataset_name": "csv"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
