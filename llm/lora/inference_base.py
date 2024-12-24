@@ -1,7 +1,7 @@
 import os
 
 os.environ["WANDB_DISABLED"] = "true"
-os.environ['CUDA_VISIBLE_DEVICES'] = '5'
+os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 
 import torch
 import pickle
@@ -12,14 +12,6 @@ from transformers import AutoTokenizer
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
 class ChatBot:
-    # def __init__(self, model_path):
-    #     self.model = AutoPeftModelForCausalLM.from_pretrained(
-    #         model_path,
-    #         low_cpu_mem_usage=True,
-    #         torch_dtype=torch.float16,
-    #         load_in_4bit=True,
-    #     )
-    #     self.tokenizer = AutoTokenizer.from_pretrained(model_path)
     def __init__(self, model_path):
         self.model = LlamaForCausalLM.from_pretrained(
             model_path,
@@ -36,27 +28,15 @@ class ChatBot:
 
     def chat(self, item_list, item_info_dict, uid, result_dict):
         # content_begin = "Now you are a user profile generator. I will provide you with a list of news articles that a user has clicked on in the past. Each news article contains four pieces of information: category, subcategory, title, and abstract. Based on this information, please generate the user's profile. Here is the list of previously clicked news articles: "
-        # content_begin = "Now you are a user profile generator. I will provide you with a list of movies that a user has watched in the past. Each movies contains two pieces of information: year and title. Based on this information, please generate the user's profile. Here is the list of previously watched movies: "
-        content_begin = "Now you are a user profile generator. I will provide you with a list of articles that a user has read in the past. Each articles contains their titles. Based on this information, please generate the user's profile. Here is the list of previously read articles: "
+        content_begin = "Now you are a user profile generator. I will provide you with a list of movies that a user has watched in the past. Each movies contains two pieces of information: year and title. Based on this information, please generate the user's profile. Here is the list of previously watched movies: "
+        # content_begin = "Now you are a user profile generator. I will provide you with a list of articles that a user has read in the past. Each articles contains their titles. Based on this information, please generate the user's profile. Here is the list of previously read articles: "
         content_end = "Please provide the profile strictly in the following format: User identity: [Identity 1], [Identity 2], [Identity 3]; User interests: [Interest 1], [Interest 2], [Interest 3]. Emphasize that only the most likely three identities and interests should be provided, and strictly adhere to the above format."
 
-        # content_item_list = ""
-        # counter_item = 0 # only for netflix dataset
-        # for iid in item_list:
-        #     content_item_list += "["
-        #     content_item_list += str(item_info_dict[iid])[1:-1]
-        #     content_item_list += "] "
-        #     counter_item += 1
-        #     if counter_item >= 5:
-        #         break
-        # content = content_begin + content_item_list + content_end
-
         content_item_list = ""
-        counter_item = 0
+        counter_item = 0 # only for netflix dataset
         for iid in item_list:
-            content_item_list += "[title: "
-            # content_item_list += str(item_info_dict[iid])[1:-1]
-            content_item_list += item_info_dict[iid]
+            content_item_list += "["
+            content_item_list += str(item_info_dict[iid])[1:-1]
             content_item_list += "] "
             counter_item += 1
             if counter_item >= 5:
@@ -74,30 +54,25 @@ class ChatBot:
         print()
 
 
-# file_user_item_dict = './../../data/mind/user_item_dict_9.pkl'
+# file_user_item_dict = './../../data/mind/user_item_dict_train.pkl'
 file_user_item_dict = './../../data/netflix/user_item_dict_train.pkl'
 with open(file_user_item_dict, 'rb') as fs:
     user_item_dict = pickle.load(fs)
 
+# file_item_info_dict = './../../data/mind/item_info_dict.pkl'
 file_item_info_dict = './../../data/netflix/item_info_dict.pkl'
 with open(file_item_info_dict, 'rb') as fs:
     item_info_dict = pickle.load(fs)
 
 result_dict = {}
-# chatbot = ChatBot("./../ft_models/llama_lora_netflix_v0/merged_model")
-chatbot = ChatBot("meta-llama/Llama-2-7b-chat-hf")
+# chatbot = ChatBot("./../ft_models/mind/user/merged_model_105")
+chatbot = ChatBot("./../ft_models/netflix/user/merged_model_75")
 
 counter = 0
 
 print(len(user_item_dict))
 
 for uid in user_item_dict:
-    # if counter < 105000:
-    #     counter += 1
-    #     continue
-    # if counter >= 105000:
-    #     counter += 1
-    #     continue
     item_list = user_item_dict[uid]
     chatbot.chat(item_list, item_info_dict, uid, result_dict)
     print(counter)
@@ -105,9 +80,9 @@ for uid in user_item_dict:
 
 print(counter)
 
-output_f = open('./../../data/netflix/user_profile/llama_hf/user_profile_dict.pkl', 'wb')
-pickle.dump(result_dict, output_f)
-output_f.close()
+# output_f = open('./../../data/netflix/user_profile/llama_hf/user_profile_dict.pkl', 'wb')
+# pickle.dump(result_dict, output_f)
+# output_f.close()
 
 
 

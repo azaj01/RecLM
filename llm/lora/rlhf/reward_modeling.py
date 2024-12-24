@@ -15,7 +15,7 @@
 
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "5"
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 os.environ["WANDB_DISABLED"] = "true"
 
 from dataclasses import dataclass, field
@@ -38,10 +38,10 @@ tqdm.pandas()
 
 @dataclass
 class ScriptArguments:
-    model_name: str = "./../../ft_models/llama_lora_netflix_v0/merged_model"
+    model_name: str = "./../../ft_models/netflix/llama_lora_user_base/merged_model_75"
     """the model name"""
-    dataset_name_train: str = "./../../../data/netflix/rlhf/netflix_data_v0/train.csv"
-    dataset_name_eval: str = "./../../../data/netflix/rlhf/netflix_data_v0/eval.csv"
+    dataset_name_train: str = "./../../../sft_data/netflix/rlhf/train.csv"
+    dataset_name_eval: str = "./../../../sft_data/netflix/rlhf/eval.csv"
     """the dataset name"""
     dataset_text_field: str = "text"
     """the text field of the dataset"""
@@ -52,7 +52,7 @@ class ScriptArguments:
     eval_first_step: bool = False
     reward_config: RewardConfig = field(
         default_factory=lambda: RewardConfig(
-            output_dir = "./../../ft_models/rlhf/reward_model_netflix_v1",
+            output_dir = "./../../ft_models/netflix/rlhf/reward_model",
             per_device_train_batch_size=4,
             per_device_eval_batch_size=4,
             num_train_epochs=3,

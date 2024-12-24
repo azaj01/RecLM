@@ -1,6 +1,6 @@
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "5"
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 os.environ["WANDB_DISABLED"] = "true"
 
 import torch
@@ -83,8 +83,6 @@ def mask_tokenize(item, tokenizer):
 
     input_ids = input_ids[:tokenizer.model_max_length]
     labels = labels[:tokenizer.model_max_length]
-    # input_ids = input_ids[:MAX_SEQ_LENGTH] # need to be fixed
-    # labels = labels[:MAX_SEQ_LENGTH]
 
     trunc_id = last_index(labels, LabelSmoother.ignore_index) + 1
     input_ids = input_ids[:trunc_id]
@@ -149,34 +147,16 @@ class DataCollatorForSupervisedDataset(object):
 def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer):
     rank0_print("Loading data...")
     
-    ft_dataset = load_dataset("csv", data_files="./../../data/netflix/cf_instruction_data.csv", split="train")
+    # ft_dataset = load_dataset("csv", data_files="./../../sft_data/mind/cf_instruction_data.csv", split="train")
+    ft_dataset = load_dataset("csv", data_files="./../../sft_data/netflix/cf_instruction_data.csv", split="train")
     train_dataset = LazySupervisedDataset(ft_dataset, tokenizer=tokenizer)
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
 
     return train_dataset, data_collator
 
-# def format_instruction(sample):
-# 	return f"""
-#     <s>[INST] <<SYS>>
-# 	You are a recommendation system capable of predicting user-item interactions based on the principles of collaborative filtering. Specifically, it can be devided into two stages.
-# 	In the first stage, you will generate a user preference profile based on the user's historical behavior.
-# 	In the second stage, using the preference profile generated in the first stage, you will find users with similar preferences and apply their historical interaction records to the target user.
-# 	This allows you to determine whether the target user is likely to interact with a particular item in the future.
-#     <</SYS>>
-#     {sample['Input1']}[/INST]
-#     {sample['Response1']}</s>
-#     <s>[INST]{sample['Input2']}[/INST]
-#     {sample['Response2']}</s>
-#     """
-
-# os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-
-# dataset = load_from_disk("./../../data/mind/cf_instruction_hf")
-
-# print(format_instruction(dataset[randrange(len(dataset))]))
-
 use_flash_attention = False
-model_id = "./../ft_models/llama_lora_netflix_v0/merged_model"
+# model_id = "./../ft_models/mind/llama_lora_user_base/merged_model_105"
+model_id = "./../ft_models/netflix/llama_lora_user_base/merged_model_75"
 
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True, bnb_4bit_use_double_quant=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16
@@ -192,17 +172,8 @@ model = AutoModelForCausalLM.from_pretrained(
 model.config.pretraining_tp = 1
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
-# tokenizer.pad_token = tokenizer.eos_token
 tokenizer.pad_token = tokenizer.unk_token
 tokenizer.padding_side = "right"
-
-# peft_config = LoraConfig(
-#         lora_alpha=16,
-#         lora_dropout=0.1,
-#         r=64,
-#         bias="none",
-#         task_type="CAUSAL_LM",
-# )
 
 peft_config = LoraConfig(
         lora_alpha=16,
@@ -217,14 +188,15 @@ model = get_peft_model(model, peft_config)
 model.print_trainable_parameters()
 
 args = TrainingArguments(
-    output_dir="./../ft_models/llama_lora_netflix_test_mask_v1",
+    # output_dir="./../ft_models/mind/llama_lora_user_mask",
+    output_dir="./../ft_models/netflix/llama_lora_user_mask",
     num_train_epochs=3,
     # num_train_epochs=1,
     # per_device_train_batch_size=6 if use_flash_attention else 4,
     per_device_train_batch_size=1,
     gradient_accumulation_steps=1,
     gradient_checkpointing=True,
-    gradient_checkpointing_kwargs={"use_reentrant": False},
+    # gradient_checkpointing_kwargs={"use_reentrant": False},
     # optim="paged_adamw_32bit",
     optim="adamw_torch",
     logging_steps=100,
@@ -241,19 +213,6 @@ args = TrainingArguments(
 # max_seq_length = 2048 # max sequence length for model and packing of the dataset
 
 train_dataset, data_collator = make_supervised_data_module(tokenizer)
-
-# trainer = SFTTrainer(
-#     model=model,
-#     # train_dataset=dataset,
-#     train_dataset=train_dataset,
-#     data_collator=data_collator,
-#     peft_config=peft_config,
-#     max_seq_length=max_seq_length,
-#     tokenizer=tokenizer,
-#     packing=True,
-#     # formatting_func=format_instruction,
-#     args=args,
-# )
 
 
 trainer = LoRATrainer(

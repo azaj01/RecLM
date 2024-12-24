@@ -1,7 +1,7 @@
 import os
 
 os.environ["WANDB_DISABLED"] = "true"
-os.environ['CUDA_VISIBLE_DEVICES'] = '6'
+os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 
 import torch
 from random import randrange
@@ -17,7 +17,7 @@ def format_instruction(sample):
     {sample['Response']}
     """
 
-dataset = load_from_disk("./../../sft_data/mind/mind_hf")
+dataset = load_from_disk("./../../sft_data/netflix/netflix_hf")
 
 print(format_instruction(dataset[randrange(len(dataset))]))
 
@@ -55,7 +55,7 @@ model = get_peft_model(model, peft_config)
 model.print_trainable_parameters()
 
 args = TrainingArguments(
-    output_dir="./../ft_models/llama_lora_mind_v0",
+    output_dir="./../ft_models/netflix/llama_lora_user_base",
     num_train_epochs=3,
     per_device_train_batch_size=6 if use_flash_attention else 4,
     gradient_accumulation_steps=2,
