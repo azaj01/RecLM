@@ -96,6 +96,8 @@ python inference_base_mask.py
 python inference_base_item.py
 ```
 
+**Note**: We provide the llama weights that have undergone collaborative instruction tuning and reinforcement learning enhancement on the MIND and Netflix datasets in the Hugging Face repository (https://huggingface.co/hkuds/RecLM_model). Please download the corresponding model weight files before performing profile inference.
+
 **3. Running base recommendation models integrated with generated user/item profiles.**
 
 For running base recommendation models (e.g., BiasMF):
@@ -222,6 +224,7 @@ python Main.py --data {dataset}
 │   └── model.png
 ├── llm
 │   ├── ft_models
+│   │   └── README.md
 │   └── lora
 │       ├── convert_llama_weights_to_hf.py
 │       ├── inference_base.py
