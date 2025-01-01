@@ -2,7 +2,7 @@
 
 <img src="./figures/RecLM_fig.png" style="zoom:100%;" />
 
-This is the codes and dataset for **RecLM** proposed in the paper **RecLM: Recommendation Instruction Tuning**.
+This is the codes and dataset for **RecLM** proposed in the paper [**RecLM: Recommendation Instruction Tuning**](https://arxiv.org/abs/2412.19302).
 
 ### Introduction
 
@@ -286,3 +286,13 @@ python Main.py --data {dataset}
 ## 🌟 Citation
 
 If you find this work helpful to your research, please kindly consider citing our paper.
+
+```
+@article{jiang2024reclm,
+  title={RecLM: Recommendation Instruction Tuning},
+  author={Jiang, Yangqin and Yang, Yuhao and Xia, Lianghao and Luo, Da and Lin, Kangyi and Huang, Chao},
+  journal={arXiv preprint arXiv:2412.19302},
+  year={2024}
+}
+```
+
