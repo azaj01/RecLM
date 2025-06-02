@@ -2,7 +2,7 @@
 
 <img src="./figures/RecLM_fig.png" style="zoom:100%;" />
 
-This is the codes and dataset for **RecLM** proposed in the paper [**RecLM: Recommendation Instruction Tuning**](https://arxiv.org/abs/2412.19302).
+This is the codes and dataset for **RecLM** proposed in the paper [**RecLM: Recommendation Instruction Tuning**](https://arxiv.org/abs/2412.19302), which is accepted by ACL 2025 main conference.
 
 ### Introduction
 
